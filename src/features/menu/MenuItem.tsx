@@ -1,7 +1,8 @@
-import { formatCurrency } from "../../utils/helpers";
+import { useEffect } from 'react';
+import { formatCurrency } from '../../utils/helpers';
 
 interface IMenuItemProps {
-  id: string;
+  id: number;
   name: string;
   unitPrice: number;
   ingredients: string[];
@@ -10,27 +11,20 @@ interface IMenuItemProps {
 }
 
 const MenuItem = (props: IMenuItemProps) => {
-  const {
-    id,
-    name,
-    unitPrice,
-    ingredients,
-    soldOut,
-    imageUrl,
-  } = props;
+  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = props;
+
+  useEffect(() => {
+    console.log('effect runs');
+  }, []);
 
   return (
     <li>
       <img src={imageUrl} alt={name} />
       <div>
         <p>{name}</p>
-        <p>{ingredients.join(", ")}</p>
+        <p>{ingredients.join(', ')}</p>
         <div>
-          {!soldOut ? (
-            <p>{formatCurrency(unitPrice)}</p>
-          ) : (
-            <p>Sold out</p>
-          )}
+          {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>}
         </div>
       </div>
     </li>
